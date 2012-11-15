@@ -115,10 +115,23 @@ public class Necromunda3dProvider extends SimpleApplication {
 
 		AppSettings settings = new AppSettings(false);
 		settings.setTitle("Necromunda");
-		settings.setSettingsDialogImage("/Images/Application/Splashscreen.png");
+		
+		int randomImage = Utils.rollD(3);
+		
+		switch (randomImage) {
+			case 1:	
+				settings.setSettingsDialogImage("/Images/Application/Splashscreen.png");
+				break;
+			case 2:
+				settings.setSettingsDialogImage("/Images/Application/Splashscreen2.png");
+				break;
+			case 3:
+				settings.setSettingsDialogImage("/Images/Application/Splashscreen3.png");
+				break;
+		}
 		settings.setFrameRate(59);
-		// settings.setSamples(4);
-		// settings.setVSync(true);
+		//settings.setSamples(4);
+		//settings.setVSync(true);
 		settings.setIcons(createFrameIcons());
 		setSettings(settings);
 	}

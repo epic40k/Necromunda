@@ -44,7 +44,15 @@ public abstract class Fighter implements Serializable {
 		BOUNTY_HUNTER("Bounty Hunter", BountyHunter.class),
 		SCAVVY_LEADER("Scavvy Leader", ScavvyBoss.class),
 		SCAVVY("Scavvy", Scavvy.class),
-		SCALEY("Scaley", Scaley.class);
+		SCALY("Scaly", Scaly.class),
+		SCAVVY_ZOMBIE("Scavvy Zombie", ScavvyZombie.class),
+		SCAVVY_GHOUL("Scavvy Ghoul", ScavvyGhoul.class),
+		SCAVVY_DOG("Scavvy Dog", ScavvyDog.class),
+		PRIEST("Priest", Priest.class),
+		CRUSADER("Crusader", Crusader.class),
+		ZEALOT("Zealot", Zealot.class),
+		DEACON("Deacon", Deacon.class),
+		DEVOTEE("Devotee", Devotee.class);
 
 		private String literal;
 		private Class<? extends Fighter> associatedClass;
@@ -112,8 +120,33 @@ public abstract class Fighter implements Serializable {
 			case SCAVVY:
 				fighter = new Scavvy(name, new ScavvyProfile(), ownGang);
 				break;
-			case SCALEY:
-				fighter = new Scaley(name, new ScavvyProfile(), ownGang);
+			case SCALY:
+				fighter = new Scaly(name, new ScalyProfile(), ownGang);
+				break;
+			case SCAVVY_ZOMBIE:
+				fighter = new ScavvyZombie(name, new ScavvyZombieProfile(), ownGang);
+				break;
+			case SCAVVY_GHOUL:
+				fighter = new ScavvyGhoul(name, new ScavvyGhoulProfile(), ownGang);
+				break;
+			case SCAVVY_DOG:
+				fighter = new ScavvyDog(name, new ScavvyDogProfile(), ownGang);
+				break;
+			case PRIEST:
+				fighter = new Priest(name, new PriestProfile(), ownGang);
+				break;
+			case CRUSADER:
+				fighter = new Crusader(name, new CrusaderProfile(), ownGang);
+				break;
+			case ZEALOT:
+				fighter = new Zealot(name, new ZealotProfile(), ownGang);
+				break;
+			case DEACON:
+				fighter = new Deacon(name, new DeaconProfile(), ownGang);
+				break;
+			case DEVOTEE:
+				fighter = new Devotee(name, new DevoteeProfile(), ownGang);
+				break;
 		}
 
 		return fighter;
