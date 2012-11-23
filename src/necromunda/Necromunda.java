@@ -184,7 +184,11 @@ public class Necromunda extends Observable {
 		map.put("Grass", "Grass.tgr");
 		map.put("Toxic Ash", "ToxicAsh.tgr");
 		map.put("Dark Ash", "DarkAsh.tgr");
-		
+		map.put("Ash Waste", "AshWaste.tgr");
+		map.put("Scorched Earth", "ScorchedAsh.tgr");
+		map.put("Acid Dunes", "GreenDunes.tgr");
+		map.put("Rust Dunes", "RedDunes.tgr");
+				
 		return map;
 	}
 	

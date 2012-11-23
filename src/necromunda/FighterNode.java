@@ -9,6 +9,7 @@ import necromunda.MaterialFactory.MaterialIdentifier;
 
 import com.jme3.bullet.collision.shapes.CylinderCollisionShape;
 import com.jme3.bullet.control.GhostControl;
+import com.jme3.light.AmbientLight;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState.BlendMode;
 import com.jme3.math.*;
@@ -54,14 +55,26 @@ public class FighterNode extends Node {
 		figure.move(xOffsetLeft, BaseFactory.BASE_HEIGHT, 0);
 		figure.setQueueBucket(Bucket.Translucent);
 		figure.setShadowMode(ShadowMode.Off);
-
+		
+		//////added by law
+		
+		AmbientLight ambientLight = new AmbientLight();
+		ambientLight.setColor(new ColorRGBA(0.2f, 0.2f, 0.2f, 1.0f));
+		addLight(ambientLight);
+		
 		CustomBillboardControl billboardControl = new CustomBillboardControl();
 		billboardControl.setAlignment(BillboardControl.Alignment.AxialY);
 
 		Node figureNode = new Node("figureNode");
 		figureNode.attachChild(figure);
+		
+		//AmbientLight ambientLight = new AmbientLight();
+		//ambientLight.setColor(new ColorRGBA(0.2f, 0.2f, 0.2f, 1.0f));
+		//figureNode.addLight(ambientLight);
+		//figureNode.setShadowMode(ShadowMode.Receive);
+		
 		figureNode.addControl(billboardControl);
-
+					
 		attachChild(roundBase);
 		attachChild(figureNode);
 

@@ -3,15 +3,15 @@ package necromunda;
 import java.io.Serializable;
 
 public abstract class FighterProfile implements Serializable {
-	private int movement;
-	private int weaponSkill;
-	private int ballisticSkill;
-	private int strength;
-	private int toughness;
-	private int wounds;
-	private int initiative;
-	private int attacks;
-	private int leadership;
+	int movement;
+	int weaponSkill;
+	int ballisticSkill;
+	int strength;
+	int toughness;
+	int wounds;
+	int initiative;
+	int attacks;
+	int leadership;
 	
 	private float currentMovement;
 	private int currentWeaponSkill;

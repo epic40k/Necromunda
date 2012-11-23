@@ -68,21 +68,21 @@ public class GangGenerationPanel extends JPanel implements ItemListener {
 	
 	private JCheckBox invertMouseCheckBox;
 	
-	private JTextField movementTextField;
-	private JTextField weaponSkillTextField;
-	private JTextField ballisticSkillTextField;
-	private JTextField strengthTextField;
-	private JTextField toughnessTextField;
-	private JTextField woundsTextField;
-	private JTextField initiativeTextField;
-	private JTextField attacksTextField;
-	private JTextField leadershipTextField;
+	/*private*/ static JTextField movementTextField;
+	/*private*/ static JTextField weaponSkillTextField;
+	/*private*/ static JTextField ballisticSkillTextField;
+	/*private*/ static JTextField strengthTextField;
+	/*private*/ static JTextField toughnessTextField;
+	/*private*/ static JTextField woundsTextField;
+	/*private*/ static JTextField initiativeTextField;
+	/*private*/ static JTextField attacksTextField;
+	/*private*/ static JTextField leadershipTextField;
 	
 	private JTabbedPane tabbedPane;
 	private JPanel mainPanel;
 	private JPanel optionsPanel;
 	
-	private JList gangList;
+	/*private*/ static JList gangList;
 	private JList fighterList;
 	
 	private FighterImagePanel fighterImagePanel;
@@ -206,12 +206,20 @@ public class GangGenerationPanel extends JPanel implements ItemListener {
 		basedModelImages.add(new BasedModelImage(basePath + "ScavvyScavvy06.png", 0, 125, House.SCAVVIES, Fighter.Type.SCAVVY));
 		basedModelImages.add(new BasedModelImage(basePath + "ScavvyScaly01.png", 9, 126, House.SCAVVIES, Fighter.Type.SCALY));
 		basedModelImages.add(new BasedModelImage(basePath + "BountyHunter01.png", 48, 196, House.SCAVVIES, Fighter.Type.BOUNTY_HUNTER));
-				
+		
+		basedModelImages.add(new BasedModelImage(basePath + "RatskinChief01.png", 0, 130, House.RATSKINS, Fighter.Type.CHIEF));
+		basedModelImages.add(new BasedModelImage(basePath + "RatskinRatskin01.png", 46, 126, House.RATSKINS, Fighter.Type.RATSKIN));
+		basedModelImages.add(new BasedModelImage(basePath + "RatskinRatskin02.png", 5, 121, House.RATSKINS, Fighter.Type.RATSKIN));
+		basedModelImages.add(new BasedModelImage(basePath + "RatskinRatskin03.png", 0, 128, House.RATSKINS, Fighter.Type.RATSKIN));
+		basedModelImages.add(new BasedModelImage(basePath + "RatskinRatskin04.png", 0, 127, House.RATSKINS, Fighter.Type.RATSKIN));
+		basedModelImages.add(new BasedModelImage(basePath + "RatskinTotemWarrior01.png", 43, 122, House.RATSKINS, Fighter.Type.WARRIOR));
+		basedModelImages.add(new BasedModelImage(basePath + "RatskinBrave01.png", 13, 127, House.RATSKINS, Fighter.Type.BRAVE));
+		basedModelImages.add(new BasedModelImage(basePath + "RatskinBrave02.png", 0, 122, House.RATSKINS, Fighter.Type.BRAVE));
+		basedModelImages.add(new BasedModelImage(basePath + "BountyHunter01.png", 48, 196, House.RATSKINS, Fighter.Type.BOUNTY_HUNTER));
+		
 		basedModelImages.add(new BasedModelImage(basePath + "BountyHunter01.png", 48, 196, House.BOUNTY_HUNTERS, Fighter.Type.BOUNTY_HUNTER));
 		basedModelImages.add(new BasedModelImage(basePath + "BountyHunter02.png", 53, 173, House.BOUNTY_HUNTERS, Fighter.Type.BOUNTY_HUNTER));
-		
-		//basedModelImages.add(new BasedModelImage(basePath + "BountyHunter01.png", 48, 196, House.BOUNTY_HUNTERS, Fighter.Type.BOUNTY_HUNTER));
-		
+				
 		gangNameLabel = new JLabel("Gang Name");
 		gangNameTextField = new JTextField();
 		
@@ -360,6 +368,8 @@ public class GangGenerationPanel extends JPanel implements ItemListener {
 		weaponComboBox.addItem(new NeedleRifle());
 		weaponComboBox.addItem(new Shotgun());
 		weaponComboBox.addItem(new Flamer());
+		weaponComboBox.addItem(new Musket());
+		weaponComboBox.addItem(new Blunderbuss());
 		weaponComboBox.addItem(new GrenadeLauncher());
 		weaponComboBox.addItem(new MeltaGun());
 		weaponComboBox.addItem(new PlasmaGun());
@@ -369,9 +379,15 @@ public class GangGenerationPanel extends JPanel implements ItemListener {
 		weaponComboBox.addItem(new HeavyStubber());
 		weaponComboBox.addItem(new Lascannon());
 		weaponComboBox.addItem(new MissileLauncher());
+		weaponComboBox.addItem(new SpearGun());
+		weaponComboBox.addItem(new ScatterCannon());
+		weaponComboBox.addItem(new Discus());
+		weaponComboBox.addItem(new ThrowingAxe());
 		weaponComboBox.addItem(new FragGrenades());
 		weaponComboBox.addItem(new KrakGrenades());
 		weaponComboBox.addItem(new PlasmaGrenades());
+		weaponComboBox.addItem(new ToxBombs());
+		weaponComboBox.addItem(new Handbow());
 		weaponComboBox.addItemListener(this);
 		
 		weaponProfileStringLabel = new JLabel();
@@ -628,27 +644,7 @@ public class GangGenerationPanel extends JPanel implements ItemListener {
 					leadershipTextField.setText(String.valueOf(profile.getLeadership()));
 					
 					fighter.setFighterImage(image);
-					
-					if (image.getFighterType() == Fighter.Type.BOUNTY_HUNTER) {
-						/*
-						Object[] values = fighterList.getSelectedValues();
-						DefaultListModel model = (DefaultListModel)fighterList.getModel();
-						
-						for (Object o : values) {
-							model.removeElement(o);
-							
-							if (o instanceof Fighter) {
-								selectedGang.removeFighter((Fighter)o);
-							}
-						}
-						*/
-						BountyHunterAdvanceDiceRolls();
-					}
-					
-					if (image.getFighterType() == Fighter.Type.SCAVVY_LEADER) {
-						GenerateScavvyFollowers();
-					}
-					
+
 					selectedGang.addFighter(fighter);
 					updateGangRating();
 					
@@ -984,128 +980,7 @@ public class GangGenerationPanel extends JPanel implements ItemListener {
 		Weapon selectedWeapon = (Weapon)weaponComboBox.getSelectedItem();
 		weaponProfileStringLabel.setText(selectedWeapon.getProfileString());
 	}
-	
-	private class FighterListCellRenderer extends DefaultListCellRenderer {
-		private final static int FIGHTER_ICON_SIZE_X = 40;
-		private final static int FIGHTER_ICON_SIZE_Y = 40;
-		
-		private final static int FIGHTER_LIST_ENTRY_WIDTH = 50;
-		private final static int FIGHTER_LIST_ENTRY_HEIGHT = 50;
-
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 8983191457622992727L;
-
-		
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			DefaultListCellRenderer renderer = (DefaultListCellRenderer)super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-			
-			ListModel model = list.getModel();
-			
-			if (model.getSize() > 0) {
-				Fighter fighter = (Fighter)model.getElementAt(index);
-				BasedModelImage basedModelImage = fighter.getFighterImage();
-				ImageIcon imageIcon = new ImageIcon(scaleImage(FIGHTER_ICON_SIZE_X, FIGHTER_ICON_SIZE_Y, basedModelImage.getImage()));
-				renderer.setIcon(imageIcon);
-				renderer.setText(String.format("%s (%s)", fighter.toString(), fighter.getProfile()));
-				
-				return renderer;
-			}
-			else {
-				renderer.setPreferredSize(new Dimension(FIGHTER_LIST_ENTRY_WIDTH, FIGHTER_LIST_ENTRY_HEIGHT));
-					
-				return renderer;
-			}
-		}
-		
-		private Image scaleImage(int targetX, int targetY, Image image) {
-			int imageX = image.getWidth(this);
-			int imageY = image.getHeight(this);
-			float ratio = 0;
-			
-			if (imageX > imageY) {
-				ratio = (float)targetX / imageX;
-			}
-			else {
-				ratio = (float)targetY / imageY;
-			}
-			
-			int finalX = (int)(imageX * ratio);
-			int finalY = (int)(imageY * ratio);
-			
-			return image.getScaledInstance(finalX, finalY, Image.SCALE_SMOOTH);
-		}
-	}
-	
-	
-	public void BountyHunterAdvanceDiceRolls()
-	{
-				
-		BasedModelImage image = (BasedModelImage)fighterImageSpinner.getModel().getValue();		
-		
-		Gang selectedGang = (Gang)gangList.getSelectedValue();
-		
-		Fighter fighter = Fighter.createInstance(image.getFighterType(), fighterNameTextField.getText(), selectedGang);
-
-		FighterProfile profile = fighter.getProfile();
-		
-		movementTextField.setText(String.valueOf(profile.getMovement()));
-		weaponSkillTextField.setText(String.valueOf(profile.getWeaponSkill()));
-		ballisticSkillTextField.setText(String.valueOf(profile.getBallisticSkill()));
-		strengthTextField.setText(String.valueOf(profile.getStrength()));
-		toughnessTextField.setText(String.valueOf(profile.getToughness()));
-		woundsTextField.setText(String.valueOf(profile.getWounds()));
-		initiativeTextField.setText(String.valueOf(profile.getInitiative()));
-		attacksTextField.setText(String.valueOf(profile.getAttacks()));
-		leadershipTextField.setText(String.valueOf(profile.getLeadership()));
-			
-		int die6 = Utils.rollD6();
-		
-		switch (die6) {
-			case 1:
-				weaponSkillTextField.setText(String.valueOf(profile.getWeaponSkill() + 1));
-				break;
-			case 2:
-				ballisticSkillTextField.setText(String.valueOf(profile.getBallisticSkill() + 1));
-				break;
-			case 3:
-				initiativeTextField.setText(String.valueOf(profile.getInitiative() + 1));
-				break;
-			case 4:
-				leadershipTextField.setText(String.valueOf(profile.getLeadership() + 1));
-				break;
-			case 5:
-					
-				int die2 = Utils.rollD(2);
-					
-				switch (die2) {
-					case 1:
-						strengthTextField.setText(String.valueOf(profile.getStrength() + 1));
-						break;
-					case 2:
-						toughnessTextField.setText(String.valueOf(profile.getToughness() + 1));
-						break;
-				}
-				break;
-			case 6:
-					
-				int newDie2 = Utils.rollD(2);
-					
-				switch (newDie2) {
-					case 1:
-						woundsTextField.setText(String.valueOf(profile.getWounds() + 1));
-						break;
-					case 2:
-						attacksTextField.setText(String.valueOf(profile.getAttacks() + 1));
-						break;
-				}
-				break;
-		}
-		
-		
-	}
-	
+/*	
 	/////Scavvy follower generation
 	
 	public void GenerateScavvyFollowers()
@@ -1687,5 +1562,58 @@ public class GangGenerationPanel extends JPanel implements ItemListener {
 		selectedGang.addFighter(ghoul01);
 		selectedGang.addFighter(ghoul02);
 		selectedGang.addFighter(ghoul03);
+	}
+	*/
+	private class FighterListCellRenderer extends DefaultListCellRenderer {
+		private final static int FIGHTER_ICON_SIZE_X = 40;
+		private final static int FIGHTER_ICON_SIZE_Y = 40;
+		
+		private final static int FIGHTER_LIST_ENTRY_WIDTH = 50;
+		private final static int FIGHTER_LIST_ENTRY_HEIGHT = 50;
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 8983191457622992727L;
+
+		
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			DefaultListCellRenderer renderer = (DefaultListCellRenderer)super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+			
+			ListModel model = list.getModel();
+			
+			if (model.getSize() > 0) {
+				Fighter fighter = (Fighter)model.getElementAt(index);
+				BasedModelImage basedModelImage = fighter.getFighterImage();
+				ImageIcon imageIcon = new ImageIcon(scaleImage(FIGHTER_ICON_SIZE_X, FIGHTER_ICON_SIZE_Y, basedModelImage.getImage()));
+				renderer.setIcon(imageIcon);
+				renderer.setText(String.format("%s (%s)", fighter.toString(), fighter.getProfile()));
+				
+				return renderer;
+			}
+			else {
+				renderer.setPreferredSize(new Dimension(FIGHTER_LIST_ENTRY_WIDTH, FIGHTER_LIST_ENTRY_HEIGHT));
+					
+				return renderer;
+			}
+		}
+		
+		private Image scaleImage(int targetX, int targetY, Image image) {
+			int imageX = image.getWidth(this);
+			int imageY = image.getHeight(this);
+			float ratio = 0;
+			
+			if (imageX > imageY) {
+				ratio = (float)targetX / imageX;
+			}
+			else {
+				ratio = (float)targetY / imageY;
+			}
+			
+			int finalX = (int)(imageX * ratio);
+			int finalY = (int)(imageY * ratio);
+			
+			return image.getScaledInstance(finalX, finalY, Image.SCALE_SMOOTH);
+		}
 	}
 }

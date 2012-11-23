@@ -176,19 +176,19 @@ public class Necromunda3dProvider extends SimpleApplication {
 			InvertedFlyCamAppState appState = new InvertedFlyCamAppState();
 			appState.setCamera(camera);
 			stateManager.attach(appState);
-			appState.getCamera().setMoveSpeed(20f);
+			appState.getCamera().setMoveSpeed(50f);
 		}
 		else {
 			FlyCamAppState appState = new FlyCamAppState();
 			appState.initialize(stateManager, this);
 			appState.cleanup();
 			stateManager.attach(appState);
-			appState.getCamera().setMoveSpeed(20f);
+			appState.getCamera().setMoveSpeed(50f);
 		}
 
-		cam.setLocation(new Vector3f(0, 20, 50));
+		cam.setLocation(new Vector3f(/*0, 20, 50*/100, 40, 100));
 		cam.lookAt(Vector3f.ZERO, Vector3f.UNIT_Y);
-
+		
 		ScreenshotAppState screenshotAppState = new ScreenshotAppState();
 		stateManager.attach(screenshotAppState);
 
@@ -216,7 +216,7 @@ public class Necromunda3dProvider extends SimpleApplication {
 
 		DirectionalLight sun = new DirectionalLight();
 		sun.setDirection(lightDirection);
-		sun.setColor(ColorRGBA.White);
+		sun.setColor(/*ColorRGBA.White*/new ColorRGBA(0.2f, 0.2f, 0.2f, 0.2f));
 		rootNode.addLight(sun);
 
 		AmbientLight ambientLight = new AmbientLight();
@@ -226,34 +226,39 @@ public class Necromunda3dProvider extends SimpleApplication {
 		initCrossHairs();
 		initStatusMessage();
 
-		TextureKey key0 = new TextureKey("Images/Textures/Sky/SkyTopBottom.png", true);
+		TextureKey key0 = new TextureKey("Images/Textures/Sky/undersky_tp.png", true);
 		key0.setGenerateMips(true);
 		key0.setAsCube(true);
 		Texture tex0 = assetManager.loadTexture(key0);
 
-		TextureKey key1 = new TextureKey("Images/Textures/Sky/SkyLeft.png", true);
+		TextureKey key1 = new TextureKey("Images/Textures/Sky/undersky_lt.png", true);
 		key1.setGenerateMips(true);
 		key1.setAsCube(true);
 		Texture tex1 = assetManager.loadTexture(key1);
 
-		TextureKey key2 = new TextureKey("Images/Textures/Sky/SkyRight.png", true);
+		TextureKey key2 = new TextureKey("Images/Textures/Sky/undersky_rt.png", true);
 		key2.setGenerateMips(true);
 		key2.setAsCube(true);
 		Texture tex2 = assetManager.loadTexture(key2);
 
-		TextureKey key3 = new TextureKey("Images/Textures/Sky/SkyFront.png", true);
+		TextureKey key3 = new TextureKey("Images/Textures/Sky/undersky_bk.png", true);
 		key3.setGenerateMips(true);
 		key3.setAsCube(true);
 		Texture tex3 = assetManager.loadTexture(key3);
 
-		TextureKey key4 = new TextureKey("Images/Textures/Sky/SkyBack.png", true);
+		TextureKey key4 = new TextureKey("Images/Textures/Sky/undersky_ft.png", true);
 		key4.setGenerateMips(true);
 		key4.setAsCube(true);
 		Texture tex4 = assetManager.loadTexture(key4);
+		
+		TextureKey key5 = new TextureKey("Images/Textures/Sky/undersky_bt.png", true);
+		key0.setGenerateMips(true);
+		key0.setAsCube(true);
+		Texture tex5 = assetManager.loadTexture(key5);
 
-		Geometry sky = (Geometry) SkyFactory.createSky(assetManager, tex1, tex2, tex3, tex4, tex0, tex0);
+		Geometry sky = (Geometry) SkyFactory.createSky(assetManager, tex1, tex2, tex3, tex4, tex0, tex5);
 		// Work around bug which sometimes culls the skybox
-		sky.setLocalScale(100);
+		sky.setLocalScale(/*100*/1000);
 		rootNode.attachChild(sky);
 
 		MouseListener mouseListener = new MouseListener();
@@ -266,7 +271,7 @@ public class Necromunda3dProvider extends SimpleApplication {
 	}
 
 	private Node createTableNode() {
-		Box box = new Box(new Vector3f(24, -0.5f, 24), 24, 0.5f, 24);
+		Box box = new Box(new Vector3f(/*28, -0.5f, 28*/200, -0.5f, 200), /*28, -0.5f, 28*/200, 0.5f, 200);
 		Geometry tableGeometry = new Geometry("tableGeometry", box);
 		tableGeometry.setMaterial(materialFactory.createNeoTextureMaterial("Images/Textures/Table/" + getTerrainMaterialIdentifier()));
 		tableGeometry.setShadowMode(ShadowMode.Receive);

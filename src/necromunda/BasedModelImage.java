@@ -3,6 +3,8 @@ package necromunda;
 import java.awt.Image;
 import java.io.Serializable;
 
+import com.jme3.renderer.queue.RenderQueue.ShadowMode;
+
 public class BasedModelImage implements Serializable {
 	private House house;
 	private Fighter.Type fighterType;

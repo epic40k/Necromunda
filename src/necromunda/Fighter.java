@@ -44,15 +44,19 @@ public abstract class Fighter implements Serializable {
 		BOUNTY_HUNTER("Bounty Hunter", BountyHunter.class),
 		SCAVVY_LEADER("Scavvy Leader", ScavvyBoss.class),
 		SCAVVY("Scavvy", Scavvy.class),
-		SCALY("Scaly", Scaly.class),
+		SCALY("Scaly", ScavvyScaly.class),
 		SCAVVY_ZOMBIE("Scavvy Zombie", ScavvyZombie.class),
 		SCAVVY_GHOUL("Scavvy Ghoul", ScavvyGhoul.class),
 		SCAVVY_DOG("Scavvy Dog", ScavvyDog.class),
-		PRIEST("Priest", Priest.class),
-		CRUSADER("Crusader", Crusader.class),
+		PRIEST("Priest", RedemptionistPriest.class),
+		CRUSADER("Crusader", RedemptionistCrusader.class),
 		ZEALOT("Zealot", Zealot.class),
-		DEACON("Deacon", Deacon.class),
-		DEVOTEE("Devotee", Devotee.class);
+		DEACON("Deacon", RedemptionistDeacon.class),
+		DEVOTEE("Devotee", RedemptionistDevotee.class),
+		CHIEF("Chief", RatskinChief.class),
+		RATSKIN("Ratskin", Ratskin.class),
+		BRAVE("Brave", RatskinBrave.class),
+		WARRIOR("Totem Warrior", RatskinTotemWarrior.class);
 
 		private String literal;
 		private Class<? extends Fighter> associatedClass;
@@ -121,7 +125,7 @@ public abstract class Fighter implements Serializable {
 				fighter = new Scavvy(name, new ScavvyProfile(), ownGang);
 				break;
 			case SCALY:
-				fighter = new Scaly(name, new ScalyProfile(), ownGang);
+				fighter = new ScavvyScaly(name, new ScavvyScalyProfile(), ownGang);
 				break;
 			case SCAVVY_ZOMBIE:
 				fighter = new ScavvyZombie(name, new ScavvyZombieProfile(), ownGang);
@@ -133,19 +137,31 @@ public abstract class Fighter implements Serializable {
 				fighter = new ScavvyDog(name, new ScavvyDogProfile(), ownGang);
 				break;
 			case PRIEST:
-				fighter = new Priest(name, new PriestProfile(), ownGang);
+				fighter = new RedemptionistPriest(name, new RedemptionistPriestProfile(), ownGang);
 				break;
 			case CRUSADER:
-				fighter = new Crusader(name, new CrusaderProfile(), ownGang);
+				fighter = new RedemptionistCrusader(name, new RedemptionistCrusaderProfile(), ownGang);
 				break;
 			case ZEALOT:
 				fighter = new Zealot(name, new ZealotProfile(), ownGang);
 				break;
 			case DEACON:
-				fighter = new Deacon(name, new DeaconProfile(), ownGang);
+				fighter = new RedemptionistDeacon(name, new RedemptionistDeaconProfile(), ownGang);
 				break;
 			case DEVOTEE:
-				fighter = new Devotee(name, new DevoteeProfile(), ownGang);
+				fighter = new RedemptionistDevotee(name, new RedemptionistDevoteeProfile(), ownGang);
+				break;
+			case CHIEF:
+				fighter = new RatskinChief(name, new RatskinChiefProfile(), ownGang);
+				break;
+			case RATSKIN:
+				fighter = new Ratskin(name, new RatskinProfile(), ownGang);
+				break;
+			case BRAVE:
+				fighter = new RatskinBrave(name, new RatskinBraveProfile(), ownGang);
+				break;
+			case WARRIOR:
+				fighter = new RatskinTotemWarrior(name, new RatskinTotemWarriorProfile(), ownGang);
 				break;
 		}
 
