@@ -220,46 +220,90 @@ public class Necromunda3dProvider extends SimpleApplication {
 		rootNode.addLight(sun);
 
 		AmbientLight ambientLight = new AmbientLight();
-		ambientLight.setColor(new ColorRGBA(0.2f, 0.2f, 0.2f, 1.0f));
+		ambientLight.setColor(new ColorRGBA(0.2f, 0.2f, 0.2f, 0.2f));
 		rootNode.addLight(ambientLight);
 
 		initCrossHairs();
 		initStatusMessage();
 
-		TextureKey key0 = new TextureKey("Images/Textures/Sky/undersky_tp.png", true);
-		key0.setGenerateMips(true);
-		key0.setAsCube(true);
-		Texture tex0 = assetManager.loadTexture(key0);
-
-		TextureKey key1 = new TextureKey("Images/Textures/Sky/undersky_lt.png", true);
-		key1.setGenerateMips(true);
-		key1.setAsCube(true);
-		Texture tex1 = assetManager.loadTexture(key1);
-
-		TextureKey key2 = new TextureKey("Images/Textures/Sky/undersky_rt.png", true);
-		key2.setGenerateMips(true);
-		key2.setAsCube(true);
-		Texture tex2 = assetManager.loadTexture(key2);
-
-		TextureKey key3 = new TextureKey("Images/Textures/Sky/undersky_bk.png", true);
-		key3.setGenerateMips(true);
-		key3.setAsCube(true);
-		Texture tex3 = assetManager.loadTexture(key3);
-
-		TextureKey key4 = new TextureKey("Images/Textures/Sky/undersky_ft.png", true);
-		key4.setGenerateMips(true);
-		key4.setAsCube(true);
-		Texture tex4 = assetManager.loadTexture(key4);
+		int rollDie2 = Utils.rollD(2);
 		
-		TextureKey key5 = new TextureKey("Images/Textures/Sky/undersky_bt.png", true);
-		key0.setGenerateMips(true);
-		key0.setAsCube(true);
-		Texture tex5 = assetManager.loadTexture(key5);
-
-		Geometry sky = (Geometry) SkyFactory.createSky(assetManager, tex1, tex2, tex3, tex4, tex0, tex5);
-		// Work around bug which sometimes culls the skybox
-		sky.setLocalScale(/*100*/1000);
-		rootNode.attachChild(sky);
+		switch (rollDie2) {
+		case 1:
+			TextureKey key0 = new TextureKey("Images/Textures/Sky/undersky_tp.png", true);
+			key0.setGenerateMips(true);
+			key0.setAsCube(true);
+			Texture tex0 = assetManager.loadTexture(key0);
+	
+			TextureKey key1 = new TextureKey("Images/Textures/Sky/undersky_lt.png", true);
+			key1.setGenerateMips(true);
+			key1.setAsCube(true);
+			Texture tex1 = assetManager.loadTexture(key1);
+	
+			TextureKey key2 = new TextureKey("Images/Textures/Sky/undersky_rt.png", true);
+			key2.setGenerateMips(true);
+			key2.setAsCube(true);
+			Texture tex2 = assetManager.loadTexture(key2);
+	
+			TextureKey key3 = new TextureKey("Images/Textures/Sky/undersky_bk.png", true);
+			key3.setGenerateMips(true);
+			key3.setAsCube(true);
+			Texture tex3 = assetManager.loadTexture(key3);
+	
+			TextureKey key4 = new TextureKey("Images/Textures/Sky/undersky_ft.png", true);
+			key4.setGenerateMips(true);
+			key4.setAsCube(true);
+			Texture tex4 = assetManager.loadTexture(key4);
+			
+			TextureKey key5 = new TextureKey("Images/Textures/Sky/undersky_bt.png", true);
+			key0.setGenerateMips(true);
+			key0.setAsCube(true);
+			Texture tex5 = assetManager.loadTexture(key5);
+			
+			Geometry sky = (Geometry) SkyFactory.createSky(assetManager, tex1, tex2, tex3, tex4, tex0, tex5);
+			
+			// Work around bug which sometimes culls the skybox
+			sky.setLocalScale(/*100*/500);
+			rootNode.attachChild(sky);
+		break;
+		case 2:
+			TextureKey key_0 = new TextureKey("Images/Textures/Sky/undersky_tp.png", true);
+			key_0.setGenerateMips(true);
+			key_0.setAsCube(true);
+			Texture tex_0 = assetManager.loadTexture(key_0);
+	
+			TextureKey key_1 = new TextureKey("Images/Textures/Sky/SumpFalls_lt.png", true);
+			key_1.setGenerateMips(true);
+			key_1.setAsCube(true);
+			Texture tex_1 = assetManager.loadTexture(key_1);
+	
+			TextureKey key_2 = new TextureKey("Images/Textures/Sky/SumpFalls_rt.png", true);
+			key_2.setGenerateMips(true);
+			key_2.setAsCube(true);
+			Texture tex_2 = assetManager.loadTexture(key_2);
+	
+			TextureKey key_3 = new TextureKey("Images/Textures/Sky/SumpFalls_bk.png", true);
+			key_3.setGenerateMips(true);
+			key_3.setAsCube(true);
+			Texture tex_3 = assetManager.loadTexture(key_3);
+	
+			TextureKey key_4 = new TextureKey("Images/Textures/Sky/SumpFalls_ft.png", true);
+			key_4.setGenerateMips(true);
+			key_4.setAsCube(true);
+			Texture tex_4 = assetManager.loadTexture(key_4);
+			
+			TextureKey key_5 = new TextureKey("Images/Textures/Sky/SumpFalls_bt.png", true);
+			key_0.setGenerateMips(true);
+			key_0.setAsCube(true);
+			Texture tex_5 = assetManager.loadTexture(key_5);
+			
+			Geometry sky2 = (Geometry) SkyFactory.createSky(assetManager, tex_1, tex_2, tex_3, tex_4, tex_0, tex_5);
+			
+			// Work around bug which sometimes culls the skybox
+			sky2.setLocalScale(/*100*/500);
+			rootNode.attachChild(sky2);
+			break;
+		}
 
 		MouseListener mouseListener = new MouseListener();
 		KeyboardListener keyboardListener = new KeyboardListener();

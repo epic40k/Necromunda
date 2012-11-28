@@ -50,7 +50,7 @@ public abstract class Fighter implements Serializable {
 		SCAVVY_DOG("Scavvy Dog", ScavvyDog.class),
 		PRIEST("Priest", RedemptionistPriest.class),
 		CRUSADER("Crusader", RedemptionistCrusader.class),
-		ZEALOT("Zealot", Zealot.class),
+		ZEALOT("Zealot", RedemptionistZealot.class),
 		DEACON("Deacon", RedemptionistDeacon.class),
 		DEVOTEE("Devotee", RedemptionistDevotee.class),
 		CHIEF("Chief", RatskinChief.class),
@@ -143,7 +143,7 @@ public abstract class Fighter implements Serializable {
 				fighter = new RedemptionistCrusader(name, new RedemptionistCrusaderProfile(), ownGang);
 				break;
 			case ZEALOT:
-				fighter = new Zealot(name, new ZealotProfile(), ownGang);
+				fighter = new RedemptionistZealot(name, new RedemptionistZealotProfile(), ownGang);
 				break;
 			case DEACON:
 				fighter = new RedemptionistDeacon(name, new RedemptionistDeaconProfile(), ownGang);
