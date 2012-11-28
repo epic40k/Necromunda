@@ -59,6 +59,8 @@ public class Necromunda3dProvider extends SimpleApplication {
 
 	private boolean invertMouse;
 
+	private boolean createLargeTable;
+	
 	private FighterNode selectedFighterNode;
 
 	private SelectionMode selectionMode;
@@ -186,8 +188,8 @@ public class Necromunda3dProvider extends SimpleApplication {
 			appState.getCamera().setMoveSpeed(50f);
 		}
 
-		cam.setLocation(new Vector3f(/*0, 20, 50*/100, 40, 100));
-		cam.lookAt(Vector3f.ZERO, Vector3f.UNIT_Y);
+		//cam.setLocation(new Vector3f(/*0, 20, 50*/100, 40, 100));
+		//cam.lookAt(Vector3f.ZERO, Vector3f.UNIT_Y);
 		
 		ScreenshotAppState screenshotAppState = new ScreenshotAppState();
 		stateManager.attach(screenshotAppState);
@@ -198,9 +200,22 @@ public class Necromunda3dProvider extends SimpleApplication {
 		materialFactory = new MaterialFactory(assetManager, this);
 		baseFactory = new BaseFactory(materialFactory);
 
-		Node tableNode = createTableNode();
+		if (createLargeTable){
+		Node tableNode = createLargeTableNode();
 		rootNode.attachChild(tableNode);
-
+		
+		cam.setLocation(new Vector3f(100, 40, 100));
+		cam.lookAt(Vector3f.ZERO, Vector3f.UNIT_Y);
+		}
+		else
+		{
+			Node tableNode = createSmallTableNode();
+			rootNode.attachChild(tableNode);
+			
+			cam.setLocation(new Vector3f(0, 20, 50));
+			cam.lookAt(Vector3f.ZERO, Vector3f.UNIT_Y);
+		}
+		
 		buildingNodes = createBuildings(game.getBuildings());
 
 		Node objectsNode = new Node("objectsNode");
@@ -314,8 +329,20 @@ public class Necromunda3dProvider extends SimpleApplication {
 		stateManager.attach(new RerollAppState(mouseListener, keyboardListener));
 	}
 
-	private Node createTableNode() {
-		Box box = new Box(new Vector3f(/*28, -0.5f, 28*/200, -0.5f, 200), /*28, -0.5f, 28*/200, 0.5f, 200);
+	private Node createSmallTableNode() {
+		Box box = new Box(new Vector3f(28, -0.5f, 28), 28, 0.5f, 28);
+		Geometry tableGeometry = new Geometry("tableGeometry", box);
+		tableGeometry.setMaterial(materialFactory.createNeoTextureMaterial("Images/Textures/Table/" + getTerrainMaterialIdentifier()));
+		tableGeometry.setShadowMode(ShadowMode.Receive);
+
+		Node tableNode = new Node("tableNode");
+		tableNode.attachChild(tableGeometry);
+
+		return tableNode;
+	}
+	
+	private Node createLargeTableNode() {
+		Box box = new Box(new Vector3f(/*28, -0.5f, 28*/100, -0.5f, 100), /*28, 0.5f, 28*/100, 0.5f, 100);
 		Geometry tableGeometry = new Geometry("tableGeometry", box);
 		tableGeometry.setMaterial(materialFactory.createNeoTextureMaterial("Images/Textures/Table/" + getTerrainMaterialIdentifier()));
 		tableGeometry.setShadowMode(ShadowMode.Receive);
@@ -599,6 +626,10 @@ public class Necromunda3dProvider extends SimpleApplication {
 		this.invertMouse = invertMouse;
 	}
 
+	public void setCreateLargeTable(boolean createLargeTable) {
+		this.createLargeTable = createLargeTable;
+	}
+	
 	private void colouriseBasesUnderTemplate(TemplateNode templateNode) {
 		List<FighterNode> fighterNodesUnderTemplate = getFighterNodesUnderTemplate(templateNode, getFighterNodes());
 

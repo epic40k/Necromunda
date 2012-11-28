@@ -97,6 +97,8 @@ public class Necromunda extends Observable {
 		building.put("MineEntrance");
 		buildings.add(building);*/
 		
+		//options
+		
 		building = new Building();
 		building.putModel("LargeTower", "Tower");
 		building.putBounds("LargeTowerBounds01");

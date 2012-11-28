@@ -67,6 +67,7 @@ public class GangGenerationPanel extends JPanel implements ItemListener {
 	private JLabel gangRating;
 	
 	private JCheckBox invertMouseCheckBox;
+	private JCheckBox createLargeTableCheckBox;
 	
 	/*private*/ static JTextField movementTextField;
 	/*private*/ static JTextField weaponSkillTextField;
@@ -692,6 +693,9 @@ public class GangGenerationPanel extends JPanel implements ItemListener {
 		invertMouseCheckBox = new JCheckBox("Invert mouse");
 		invertMouseCheckBox.setSelected(true);
 		
+		createLargeTableCheckBox = new JCheckBox("Large table");
+		createLargeTableCheckBox.setSelected(true);
+		
 		terrainTypeComboBox = new JComboBox(game.getTerrainTextureMap().keySet().toArray());
 		
 		JPanel panel1 = new JPanel();
@@ -714,8 +718,9 @@ public class GangGenerationPanel extends JPanel implements ItemListener {
 		panel1.add(fighterTypeComboBox);
 		
 		optionsPanel.add(invertMouseCheckBox);
+		optionsPanel.add(createLargeTableCheckBox);
 		optionsPanel.add(terrainTypeComboBox);
-		
+				
 		Box mainBox = Box.createHorizontalBox();
 		mainBox.add(fighterImageSpinner);
 		
@@ -949,6 +954,7 @@ public class GangGenerationPanel extends JPanel implements ItemListener {
 						
 			final Necromunda3dProvider necromunda3dProvider = new Necromunda3dProvider(game);
 			necromunda3dProvider.setInvertMouse(invertMouseCheckBox.isSelected());
+			necromunda3dProvider.setCreateLargeTable(createLargeTableCheckBox.isSelected());
 			String materialIdentifier = game.getTerrainTextureMap().get(terrainTypeComboBox.getSelectedItem());
 			necromunda3dProvider.setTerrainMaterialIdentifier(materialIdentifier);
 
